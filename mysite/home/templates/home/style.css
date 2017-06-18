@@ -1,0 +1,14 @@
+.thumbnails {
+    text-align:center;
+    border: 0;
+    border-radius:0px;
+}
+
+.thumbnails > li {
+    display: inline-block;
+    *display:inline; 
+    float: none; 
+}
+body {
+    background-color:black;
+}

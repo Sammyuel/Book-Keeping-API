@@ -1,0 +1,90 @@
+
+
+<!doctype html>
+
+
+{% extends "home/header.html" %}
+{% block Titles_active %}active{% endblock %}
+
+{% block content %}
+
+<head>
+	{% load staticfiles %}
+	<title> My Webpage</title>
+
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+	<body>
+	<center>
+		<div class="albums-container container-fluid" style = "background-color:white; margin:0px;">
+		    <div class="row" style = "background-image: url('media/photos/test.jpg');">
+		        
+
+		        {% if titles %}
+		        	
+		            {% for title in titles%}
+		            	<div class="col-sm-4 col-lg-2" >
+	                		<div class="thumbnail" >
+	                			
+	               				<a href="{% url 'events:create_post' title.Title %}" class="thumbnail" >
+
+	                        		<img class="img-rounded" src="{{ title.Title_logo.url }}"  style="width: 300px; height: 120px; border-radius: 0px; border: 0;">
+	                        		<div class = "caption"> {{title.Title}} </div>
+	                    		</a>
+	                   		
+	                    	</div>
+	                    </div>
+	                    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+	                {% endfor %}
+	            {% endif %}
+	            </div>
+
+	    </div>
+	</center>
+
+	
+	
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+</body>
+
+<style type='text/css'>
+
+	.images{
+		display: inline-block;
+		width: 300px; 
+		height: 120px; 
+		border-radius: 0px; 
+		border: 0;
+		
+	}
+
+
+	.thumbnail {
+	text-align:center;
+	border: none;
+	border-radius:0px;
+	padding:0;
+	background-image: url("media/photos/content.jpg");
+
+
+
+	}
+
+	.thumbnail > li {
+	display: inline-block;
+	*display:inline; 
+	float: none; 
+	background-image: url("media/photos/images.jpg");
+	}
+
+
+</style>
+{% endblock %}	
+

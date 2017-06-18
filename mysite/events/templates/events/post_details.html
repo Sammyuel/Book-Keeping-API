@@ -1,0 +1,85 @@
+{% extends "home/header.html" %}
+{% block content %}
+<body>
+    <div class="container-fluid songs-container">
+
+        <div class="row">
+
+
+            <div class="col-sm-8 col-md-9">
+
+                <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                    <li role="presentation" class="active"><a href="{% url 'events:post_details' titles.Title %}">View bets</a></li>
+                    <li role="presentation"><a href="{% url 'events:create_post' titles.Title %}">Place bet</a></li>
+                </ul>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <h3>Bets</h3>
+
+
+                        <table class="table table-striped">
+                            <thead>
+
+                            <tr>
+                                <th> team 1 </th>
+                                <th> team 2 </th>
+                                <th> Stake  </th>
+                                <th>Results</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for bets in posts %}
+                                    <tr>
+                                        <td> {{bets.team_1}}
+                                        <td> {{bets.team_2}}
+                                        <td> {{ bets.bet_ammount }} : {{bets.receive_ammount}}</td>
+                                        <td > {{bets.result}}</td>
+                                    </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <style type='text/css'>
+
+    table {
+      border-collapse: separate;
+      border-spacing: 0 5px;
+    }
+
+    thead th {
+      background-color: #006DCC;
+      color: white;
+    }
+
+    tbody td {
+      background-color: #EEEEEE;
+    }
+
+    tr td:first-child,
+    tr th:first-child {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    tr td:last-child,
+    tr th:last-child {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+</style>
+</body>
+
+{% endblock %}
+
