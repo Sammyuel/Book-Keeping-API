@@ -7,6 +7,7 @@
 var endpoint = '/api/chart/data/'
 var defaultData = []
 var labels = []
+
 $.ajax({
 	method:"GET",
 	url: endpoint,
@@ -22,6 +23,7 @@ $.ajax({
 		console.log(data)
 	}
 })
+
 function setChart(){
 	var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
@@ -63,20 +65,62 @@ var myChart = new Chart(ctx, {
 
 {% block content %}
 
-<div class='row'>
-    <div class = 'container' style = "background-color:white;">
+<div class='row' style = 'display: block;'>
 
-        <div class='col-sm-12 col-md-6 ' style = "margin:0px;">
-            <h2 style = "margin:10px;">  {{user}} </h2>
-            <canvas id="myChart" width="400" height="400">yes</canvas>
+    <div class='container col-md-8' style = "  margin: 0 auto; width:700px; ">
+
+        <div class = 'col-md-10' style = "margin:0px;">
+            <canvas id="myChart" width="300" height="200">yes</canvas>
 
         </div>
-        <div class = 'col-md-6'>
-            <h3> Recent bets </h3>
+        <div class = 'container col-md-2' >
+
+        	<h3 style = ' font-weight:bold; font-style:italic;'> Titles </h3>
+        	<a class = "myButton"> All </a>
+        	{% for title in titles %}
+        		<a  class="myButton">{{title}}</a>
+        	{% endfor %}
+        </div>
+
+    </div>
+
+    <div class="panel panel-default col-md-4">
+        <div class="panel-body">
+
+            <h3>Latest bets</h3>
+
+
+            <table class="table table-striped">
+                <thead>
+
+                <tr>
+                    <th> team 1 </th>
+                    <th> team 2 </th>
+                    <th> Stake  </th>
+                    <th>Results</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                    {% for bets in posts|slice:":10" %}
+                        <tr>
+                            <td> {{bets.team_1}}
+                            <td> {{bets.team_2}}
+                            <td> {{ bets.bet_ammount }} : {{bets.receive_ammount}}</td>
+                            <td > {{bets.result}}</td>
+           
+                        </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+
         </div>
     </div>
 
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <!-- Latest compiled and minified JavaScript -->
@@ -85,4 +129,79 @@ var myChart = new Chart(ctx, {
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+
+<style type='text/css'>
+.myButton {
+	-moz-box-shadow: 0px 0px 0px 0px #fff6af;
+	-webkit-box-shadow: 0px 0px 0px 0px #fff6af;
+	box-shadow: 0px 0px 0px 0px #fff6af;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+	background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+	background-color:#ffec64;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:3px solid #ffaa22;
+	margin:1px;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:3px 19px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+	text-align:center;
+	width: 100px;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+	background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+	background-color:#ffab23;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+    table {
+      border-collapse: separate;
+      border-spacing: 0 5px;
+    }
+
+    thead th {
+      background-color: #006DCC;
+      color: white;
+    }
+
+    tbody td {
+      background-color: #EEEEEE;
+    }
+
+    tr td:first-child,
+    tr th:first-child {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    tr td:last-child,
+    tr th:last-child {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+
+
+
+
+</style>
 {% endblock content %}

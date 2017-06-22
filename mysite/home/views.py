@@ -36,7 +36,9 @@ def add_title(request):
 
 def ProfileView(request):
     user = request.user
-    return render(request, 'home/profile.html', {'user':user})
+    titles = Titles.objects.all()
+    posts = Posts.objects.all()
+    return render(request, 'home/profile.html', {'user':user,'titles':titles, 'posts':posts})
 
     
 def labelsNum(number):
@@ -68,10 +70,24 @@ class ChartData(APIView):
                 profits.append(default_items[i]+profits[i-1])
             
         labels = labelsNum(len(default_items))
+            
         data = {
             "default": profits,
   
             "labels": labels,
 
             }
+        all_titles = Titles.objects.all()
+        for title in all_titles:
+            single_items = []
+            single_profits = []
+            game_post = Posts.objects.filter(titles = title)
+            for post in game_post:
+                single_items.append(post.receive_ammount - post.bet_ammount)
+            for i in range(len(single_items)):
+                if i == 0:
+                    profits.append(single_items[i])
+                else:
+                    profits.append(default_items[i]+profits[i-1])
+            data[title.Title] = single_profits
         return JsonResponse(data)

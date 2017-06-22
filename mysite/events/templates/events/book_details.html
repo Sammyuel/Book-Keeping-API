@@ -26,20 +26,18 @@
                             <tr>
                                 <th> team 1 </th>
                                 <th> team 2 </th>
-                                <th> Stake  </th>
+                                <th> odds  </th>
                                 <th>Results</th>
-     
 
                             </tr>
                             </thead>
                             <tbody>
-                                {% for bets in posts %}
+                                {% for bets in book %}
                                     <tr>
                                         <td> {{bets.team_1}}
                                         <td> {{bets.team_2}}
-                                        <td> {{ bets.bet_ammount }} : {{bets.receive_ammount}}</td>
+                                        <td> {{ bets.odds }} </td>
                                         <td > {{bets.result}}</td>
-                       
                                     </tr>
 
                                 {% endfor %}
