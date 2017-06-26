@@ -1,26 +1,35 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Titles
+from events.models import events
 from django.db.models import Q
 from django.views.generic import View
 from .forms import TitlesForm
+from events.forms import eventsForm
 from events.models import Posts
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-
+from events.forms import eventsForm
 
 User = get_user_model()
 def index(request):
+    titles = Titles.objects.filter(user=request.user)
+    event = events.objects.all()
+    form = eventsForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        event = form.save(commit=True)
+        return render(request, 'home/home.html', {'titles':titles, 'form': form})
     if not request.user.is_authenticated():
         return render(request, 'account/login.html')
     if request.method == 'POST':
-        form = ModelFormWithFileField(request.POST, request.FILES)
+        form = eventsForm(request.POST, request.FILES)
         if form.is_valid():
             title = form.save()
             title.Title_logo = request.FILES['Title_logo']
-    titles = Titles.objects.filter(user=request.user)
-    return render(request, 'home/home.html', {'titles':titles})
+    
+    return render(request, 'home/home.html', {'titles':titles, 'form': form,'events':event})
+
 
 
 def add_title(request):

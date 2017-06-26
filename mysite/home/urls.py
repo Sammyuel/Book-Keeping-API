@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^add_title/$', views.add_title, name = 'add_title'),
     url(r'^profile/$', views.ProfileView, name = 'profile'),
     url(r'^api/chart/data/$', ChartData.as_view()),
-
+    
     
     ]

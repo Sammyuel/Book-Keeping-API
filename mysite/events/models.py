@@ -6,7 +6,7 @@ from allauth.socialaccount.models import SocialAccount
 from django.conf import settings
 from datetime import datetime
 from decimal import Decimal
-
+from datetime import date
     
 class Posts(models.Model):
     titles = models.ForeignKey(Titles,on_delete = models.CASCADE)
@@ -28,3 +28,10 @@ class odds(models.Model):
     result = models.CharField(max_length=100)
     def __str__(self):
         return self.team_1 + " vs " + self.team_2
+
+class events(models.Model):
+    titles = models.ForeignKey(Titles, on_delete=models.CASCADE)
+    event = models.CharField(max_length = 100)
+    date = models.DateTimeField(default = datetime.now)
+    players = models.CharField(max_length = 100)
+    

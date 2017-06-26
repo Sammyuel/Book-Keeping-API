@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^(?P<titles_Title>[\w\-]+)$', views.create_post, name = 'create_post'),
     url(r'^(?P<titles_Title>[\w\-]+)/post_details', views.post_details, name='post_details'),
     url(r'^(?P<titles_Title>[\w\-]+)/book_details', views.book_details, name='book_details'),
-
+    url(r'^events_template', views.events_form)
     ]

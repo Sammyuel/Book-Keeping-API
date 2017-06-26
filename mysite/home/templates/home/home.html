@@ -17,33 +17,117 @@
 
 </head>
 	<body>
-	<center>
-		<div class="albums-container container-fluid" style = "background-color:white; margin:0px;">
-		    <div class="row" style = "background-image: url('media/photos/test.jpg');">
-		        
+		<div class="jumbotron">
+		<h1>Your Personal Book-Keeping</h1>
+		<div class="container-fluid">
+		  <div class="row-fluid">
+		    <div class="col-xs-4">
 
-		        {% if titles %}
-		        	
-		            {% for title in titles%}
-		            	<div class="col-sm-4 col-lg-2" >
-	                		<div class="thumbnail" >
-	                			
-	               				<a href="{% url 'events:create_post' title.Title %}" class="thumbnail" >
+		    </div>
+		   </div>
+		  </div>
+		 </div>
 
-	                        		<img class="img-rounded" src="{{ title.Title_logo.url }}"  style="width: 300px; height: 120px; border-radius: 0px; border: 0;">
-	                        		<div class = "caption"> {{title.Title}} </div>
-	                    		</a>
-	                   		
-	                    	</div>
-	                    </div>
-	                    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+
+	
+	<div class="container" style = " width:1000px; margin: 75px;">
+		<h2> Titles </h2>
+	    <div class="row" style = "background-color:white;">
+	        
+
+	        {% if titles %}
+	        	
+	            {% for title in titles%}
+	            	<div class="col-sm-4 col-lg-2" >
+                		<div class="thumbnail" >
+                			
+               				<a href="{% url 'events:create_post' title.Title %}" class="thumbnail" >
+
+                        		<img class="img-rounded" src="{{ title.Title_logo.url }}"  style="width: 350px; height: 125px; border-radius: 0px; ">
+                        		<div class = "caption"> {{title.Title}} </div>
+                    		</a>
+                   		
+                    	</div>
+                    </div>
+                    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+                {% endfor %}
+            {% endif %}
+            </div>
+
+    </div>
+
+
+	<div class="well">
+		<div class = 'container'>
+			<h3> Upcomming Events <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			  Add Event
+			</button></h3>
+			
+
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Add Event</h4>
+			      </div>
+			      <div class="modal-body">
+	                  <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+		                {% csrf_token %}
+		                <input type="hidden" name="album" value="{{ album }}">
+					        {% for field in form %}
+							    <div class="form-group">
+							        <div class="col-sm-offset-2 col-sm-10">
+							            <span class="text-danger small">{{ field.errors }}</span>
+							        </div>
+							        <label class="control-label col-sm-2" for="song_title">{{ field.label_tag }}</label>
+							        <div class="col-sm-10">{{ field }}</div>
+							    </div>
+							{% endfor %}
+		                <div class="form-group">
+		                    <div class="col-sm-offset-2 col-sm-10">
+		                        <button type="submit" class="btn btn-success">Save Changes</button>
+		                    </div>
+		                </div>
+		            </form>
+
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
+	        
+	        <table class="table table-striped">
+	            <thead>
+
+	            <tr>
+	                <th> Title </th>
+	                <th> Event </th>
+	                <th> Date </th>
+	                <th>players</th>
+
+
+	            </tr>
+	            </thead>
+	            <tbody>
+	                {% for event in events %}
+	                    <tr>
+	                        <td> {{event.titles}}
+	                        <td> {{event.event}}
+	                        <td> {{ event.date }} </td>
+	                        <td > {{event.players}}</td>
+	       
+	                    </tr>
+
 	                {% endfor %}
-	            {% endif %}
-	            </div>
-
-	    </div>
-	</center>
-
+	            </tbody>
+	        </table>
+		</div>
+	</div>
 	
 	
 
@@ -58,8 +142,7 @@
 
 	.images{
 		display: inline-block;
-		width: 300px; 
-		height: 120px; 
+
 		border-radius: 0px; 
 		border: 0;
 		
@@ -70,7 +153,7 @@
 	text-align:center;
 	border: none;
 	border-radius:0px;
-	padding:0;
+	padding:0px;
 	background-image: url("media/photos/content.jpg");
 
 
@@ -83,8 +166,45 @@
 	float: none; 
 	background-image: url("media/photos/images.jpg");
 	}
+	.jumbotron {
 
+    margin-bottom: 0px;
+    background-image: url("media/photos/images.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 
+    background-repeat: no-repeat;
+    color: white;
+    margin-bottom: 20px;
+
+    text-shadow: black 0.3em 0.3em 0.3em;
+
+}
+    table {
+      border-collapse: separate;
+      border-spacing: 0 5px;
+    }
+
+    thead th {
+      background-color: black;
+      color: white;
+    }
+
+    tbody td {
+      background-color: #EEEEEE;
+    }
+
+    tr td:first-child,
+    tr th:first-child {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    tr td:last-child,
+    tr th:last-child {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
 </style>
 {% endblock %}	
 
