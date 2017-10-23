@@ -1,7 +1,7 @@
 # Book-Keeping-API - Django
 
 Django A Book-Keeping API that allows users to keep track of their
-bets. Includes a profile page that displays a graph presenting profit/loss
+bets. Includes a profile page that displays a graph representing profit/loss
 of selected sports categories. Allows users to add sports categories, report bets, and personalize their profile page.
 Third party account verification leveraging Django-Allauth. 
 
