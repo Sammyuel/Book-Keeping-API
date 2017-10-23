@@ -32,7 +32,7 @@ python manage.py runserver
 
 ## Authors
 
-* **Sam Lee** - *Personal projectk* - [Sammyuel](https://github.com/Sammyuel)
+* **Sam Lee** - *Personal project* - [Sammyuel](https://github.com/Sammyuel)
 
 
 ## License
