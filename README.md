@@ -9,16 +9,13 @@ Third party account verification leveraging Django-Allauth.
 Clone or download the repository
 Install Django version 1.11
 
-### Installing
+### Running
 
 Open the folder in a terminal window
 
 ```
 cd backend
 cd src 
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser (provide user information)
 python manage.py runserver
 ```
 
